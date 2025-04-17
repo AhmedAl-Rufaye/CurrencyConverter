@@ -31,14 +31,14 @@ class MainActivity : AppCompatActivity() {
         fromCurrencySpinner = findViewById(R.id.fromCurrencySpinner)
         toCurrencySpinner = findViewById(R.id.toCurrencySpinner)
 
-        // Populate the spinners with currencies
-        val currencies = arrayOf("USD", "EUR", "INR", "GBP", "JPY", "AUD", "CAD", "CHF", "CNY", "MXN")
+        // Populating the spinners with currencies
+        val currencies = arrayOf("USD", "EUR", "INR", "GBP", "JPY", "AUD", "CAD", "CHF", "CNY", "MXN", "RUB", "JOD")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, currencies)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         fromCurrencySpinner.adapter = adapter
         toCurrencySpinner.adapter = adapter
 
-        // listener for the convert button
+        // Listener for the convert button
         convertButton.setOnClickListener {
             val amount = amountInput.text.toString().toDoubleOrNull() ?: 1.0
             val from = fromCurrencySpinner.selectedItem.toString()
@@ -71,13 +71,13 @@ class MainActivity : AppCompatActivity() {
                     if (result == "success") {
                         resultView.text = "$amount $from = $convertedAmount $to"
                     } else {
-                        resultView.text = "API call failed"
+                        resultView.text = "API call failed, try again later!"
                     }
                 }
 
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    resultView.text = "Error: ${e.message}"
+                    resultView.text = "Connection Error: ${e.message}"
                 }
             }
         }
